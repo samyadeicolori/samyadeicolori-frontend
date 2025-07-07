@@ -70,8 +70,10 @@ export default async function Home() {
             }
             // Debug temporaneo: mostra il contenuto dell'articolo
             // console.log('Contenuto articolo:', post.content);
+            console.log('DEBUG content:', post.content);
             const contentImage = getFirstImageFromContent(post.content);
             const thumbUrl = post.featuredImage?.node?.sourceUrl || contentImage;
+            console.log('DEBUG thumbUrl:', thumbUrl);
             const thumbAlt = post.featuredImage?.node?.altText || post.title;
             return (
               <a
