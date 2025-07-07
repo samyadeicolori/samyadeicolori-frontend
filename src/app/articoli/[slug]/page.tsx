@@ -15,7 +15,7 @@ export default async function Page({ params }: any) {
 
   let post = null;
   try {
-    const data = await graphqlClient.request(query, { slug: `/${params.slug}/` });
+    const data: any = await graphqlClient.request(query, { slug: `/${params.slug}/` });
     post = data.post;
   } catch (err) {
     console.error('Errore nel recupero articolo:', err);
