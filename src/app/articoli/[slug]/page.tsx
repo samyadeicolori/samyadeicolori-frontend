@@ -15,6 +15,7 @@ export default async function Page({ params }: any) {
 
   let post = null;
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data: any = await graphqlClient.request(query, { slug: `/${params.slug}/` });
     post = data.post;
   } catch (err) {
