@@ -9,11 +9,7 @@ interface PostData {
   } | null;
 }
 
-interface Params {
-  params: { slug: string };
-}
-
-export default async function ArticoloPage({ params }: Params) {
+export default async function ArticoloPage({ params }: { params: { slug: string } }) {
   const query = gql`
     query GetPostBySlug($slug: ID!) {
       post(id: $slug, idType: URI) {
