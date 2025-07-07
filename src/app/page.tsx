@@ -1,3 +1,4 @@
+export const revalidate = 60;
 import graphqlClient from '@/lib/graphqlClient';
 import { gql } from 'graphql-request';
 
