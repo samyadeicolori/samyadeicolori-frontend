@@ -5,6 +5,7 @@ import { gql } from 'graphql-request';
 interface Post {
   title: string;
   uri: string;
+  content: string;
   featuredImage?: {
     node: {
       sourceUrl: string;
@@ -26,6 +27,7 @@ export default async function Home() {
         nodes {
           title
           uri
+          content
           featuredImage {
             node {
               sourceUrl
@@ -57,6 +59,14 @@ export default async function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 w-full max-w-5xl mx-auto">
           {posts.map((post) => {
             const slug = post.uri.replace(/^\/+|\/+$/g, '');
+            // Funzione per estrarre la prima immagine dal contenuto HTML
+            function getFirstImageFromContent(html: string): string | null {
+              const match = html.match(/<img [^>]*src=["']([^"']+)["'][^>]*>/i);
+              return match ? match[1] : null;
+            }
+            const contentImage = getFirstImageFromContent(post.content);
+            const thumbUrl = post.featuredImage?.node?.sourceUrl || contentImage;
+            const thumbAlt = post.featuredImage?.node?.altText || post.title;
             return (
               <a
                 key={post.uri}
@@ -64,10 +74,10 @@ export default async function Home() {
                 className="block bg-white rounded-lg shadow-md p-6 h-48 flex flex-col items-center justify-center text-center transition-transform hover:scale-105 border border-gray-200"
                 style={{ minHeight: '12rem', maxHeight: '12rem' }}
               >
-                {post.featuredImage?.node?.sourceUrl && (
+                {thumbUrl && (
                   <img
-                    src={post.featuredImage.node.sourceUrl}
-                    alt={post.featuredImage.node.altText || post.title}
+                    src={thumbUrl}
+                    alt={thumbAlt}
                     className="mb-2 object-cover rounded w-20 h-20 mx-auto"
                     style={{ width: '5rem', height: '5rem' }}
                   />
