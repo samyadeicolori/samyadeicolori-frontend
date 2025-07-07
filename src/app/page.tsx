@@ -61,9 +61,15 @@ export default async function Home() {
             const slug = post.uri.replace(/^\/+|\/+$/g, '');
             // Funzione per estrarre la prima immagine dal contenuto HTML
             function getFirstImageFromContent(html: string): string | null {
-              const match = html.match(/<img [^>]*src=["']([^"']+)["'][^>]*>/i);
-              return match ? match[1] : null;
+              // Cerca la prima immagine ovunque nel markup
+              const match = html.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
+              if (match) return match[1];
+              // Debug temporaneo
+              console.log('Nessuna immagine trovata in:', html);
+              return null;
             }
+            // Debug temporaneo: mostra il contenuto dell'articolo
+            // console.log('Contenuto articolo:', post.content);
             const contentImage = getFirstImageFromContent(post.content);
             const thumbUrl = post.featuredImage?.node?.sourceUrl || contentImage;
             const thumbAlt = post.featuredImage?.node?.altText || post.title;
