@@ -2,14 +2,7 @@ import graphqlClient from '@/lib/graphqlClient';
 import { gql } from 'graphql-request';
 import { notFound } from 'next/navigation';
 
-interface PostData {
-  post: {
-    title: string;
-    content: string;
-  } | null;
-}
-
-export default async function ArticoloPage({ params }: { params: { slug: string } }) {
+export default async function Page({ params }: any) {
   const query = gql`
     query GetPostBySlug($slug: ID!) {
       post(id: $slug, idType: URI) {
@@ -19,9 +12,9 @@ export default async function ArticoloPage({ params }: { params: { slug: string 
     }
   `;
 
-  let post: PostData['post'] = null;
+  let post = null;
   try {
-    const data = await graphqlClient.request<PostData>(query, { slug: `/${params.slug}/` });
+    const data = await graphqlClient.request(query, { slug: `/${params.slug}/` });
     post = data.post;
   } catch (err) {
     console.error('Errore nel recupero articolo:', err);
