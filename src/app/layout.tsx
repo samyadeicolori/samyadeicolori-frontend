@@ -27,6 +27,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <header style={{ background: '#4f46e5', color: 'white', padding: '1rem', textAlign: 'center', fontWeight: 'bold', fontSize: '1.5rem' }}>
+          Samya dei Colori
+        </header>
         {children}
       </body>
     </html>
