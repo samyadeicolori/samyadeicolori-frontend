@@ -2,6 +2,7 @@ import graphqlClient from '@/lib/graphqlClient';
 import { gql } from 'graphql-request';
 import { notFound } from 'next/navigation';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function Page({ params }: any) {
   const query = gql`
     query GetPostBySlug($slug: ID!) {
