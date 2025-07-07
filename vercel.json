@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "https://2025.samyadeicolori.it/:path*",
+      "destination": "https://www.2025.samyadeicolori.it/:path*",
+      "permanent": true
+    }
+  ]
+}
