@@ -51,7 +51,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between pt-6 pb-24 px-4 md:px-24">
       <h1 className="text-4xl font-bold mb-8">Latest WordPress Posts</h1>
       {error && <p className="text-red-500">{error}</p>}
       {!error && posts.length === 0 && <p>No posts found.</p>}
