@@ -5,6 +5,12 @@ import { gql } from 'graphql-request';
 interface Post {
   title: string;
   uri: string;
+  featuredImage?: {
+    node: {
+      sourceUrl: string;
+      altText: string;
+    };
+  };
 }
 
 interface PostsData {
@@ -20,6 +26,12 @@ export default async function Home() {
         nodes {
           title
           uri
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
         }
       }
     }
@@ -49,9 +61,17 @@ export default async function Home() {
               <a
                 key={post.uri}
                 href={`/articoli/${slug}`}
-                className="block bg-white rounded-lg shadow-md p-6 h-48 flex items-center justify-center text-center transition-transform hover:scale-105 border border-gray-200"
+                className="block bg-white rounded-lg shadow-md p-6 h-48 flex flex-col items-center justify-center text-center transition-transform hover:scale-105 border border-gray-200"
                 style={{ minHeight: '12rem', maxHeight: '12rem' }}
               >
+                {post.featuredImage?.node?.sourceUrl && (
+                  <img
+                    src={post.featuredImage.node.sourceUrl}
+                    alt={post.featuredImage.node.altText || post.title}
+                    className="mb-2 object-cover rounded w-20 h-20 mx-auto"
+                    style={{ width: '5rem', height: '5rem' }}
+                  />
+                )}
                 <span className="text-xl font-semibold text-gray-800 line-clamp-3">
                   {post.title}
                 </span>
